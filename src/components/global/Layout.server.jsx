@@ -1,4 +1,3 @@
-import {Suspense} from 'react';
 import {useLocalization, useShopQuery, CacheLong, gql} from '@shopify/hydrogen';
 
 import {Header} from '~/components';
@@ -15,24 +14,9 @@ const SHOP_NAME_FALLBACK = 'Hydrogen';
  */
 export function Layout({children}) {
   return (
-    <>
-      <div className="flex flex-col min-h-screen">
-        <div className="">
-          <a href="#mainContent" className="sr-only">
-            Skip to content
-          </a>
-        </div>
-        <Suspense fallback={<Header title={SHOP_NAME_FALLBACK} />}>
-          <HeaderWithMenu />
-        </Suspense>
         <main role="main" id="mainContent" className="flex-grow">
           {children}
         </main>
-      </div>
-      <Suspense fallback={<Footer />}>
-        <FooterWithMenu />
-      </Suspense>
-    </>
   );
 }
 

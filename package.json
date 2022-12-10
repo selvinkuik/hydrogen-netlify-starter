@@ -40,6 +40,8 @@
     "@shopify/hydrogen": "^1.4.3",
     "clsx": "^1.1.1",
     "graphql-tag": "^2.12.6",
+    "overlayscrollbars": "^2.0.1",
+    "overlayscrollbars-react": "^0.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0",

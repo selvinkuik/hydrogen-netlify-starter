@@ -1,18 +1,15 @@
-import {Suspense} from 'react';
 import {
   CacheLong,
   gql,
   Seo,
   ShopifyAnalyticsConstants,
   useServerAnalytics,
-  useLocalization,
   useShopQuery,
 } from '@shopify/hydrogen';
-
+import 'overlayscrollbars/overlayscrollbars.css';
 import {MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT} from '~/lib/fragments';
-import {getHeroPlaceholder} from '~/lib/placeholders';
-import {FeaturedCollections, Hero} from '~/components';
-import {Layout, ProductSwimlane} from '~/components/index.server';
+import {Hero} from '~/components';
+import {Layout} from '~/components/index.server';
 
 export default function Homepage() {
   useServerAnalytics({
@@ -23,55 +20,14 @@ export default function Homepage() {
 
   return (
     <Layout>
-      <Suspense>
-        <SeoForHomepage />
-      </Suspense>
-      <Suspense>
         <HomepageContent />
-      </Suspense>
     </Layout>
   );
 }
 
 function HomepageContent() {
-  const {
-    language: {isoCode: languageCode},
-    country: {isoCode: countryCode},
-  } = useLocalization();
-
-  const {data} = useShopQuery({
-    query: HOMEPAGE_CONTENT_QUERY,
-    variables: {
-      language: languageCode,
-      country: countryCode,
-    },
-    preload: true,
-  });
-
-  const {heroBanners, featuredCollections, featuredProducts} = data;
-
-  // fill in the hero banners with placeholders if they're missing
-  const [primaryHero, secondaryHero, tertiaryHero] = getHeroPlaceholder(
-    heroBanners.nodes,
-  );
-
   return (
-    <>
-      {primaryHero && (
-        <Hero {...primaryHero} height="full" top loading="eager" />
-      )}
-      <ProductSwimlane
-        data={featuredProducts.nodes}
-        title="Featured Products"
-        divider="bottom"
-      />
-      {secondaryHero && <Hero {...secondaryHero} />}
-      <FeaturedCollections
-        data={featuredCollections.nodes}
-        title="Collections"
-      />
-      {tertiaryHero && <Hero {...tertiaryHero} />}
-    </>
+    <Hero />
   );
 }
 
